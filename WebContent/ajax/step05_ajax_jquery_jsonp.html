@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax jQuery JSONP Demo</title>
+    <script src="/js/jquery-3.4.1.js"></script>
+    <script>
+    	$(function(){
+    		$.ajax({
+    			type : 'GET',
+    			dataType : 'jsonp', // jsonp는 ajax가 아니기 떄문에 동기적으로 진행된다. (step04와 같은 원리)
+    			url : 'http://acornacademy.co.kr/blockchain/naver_json.jsp',
+    			jsonp : 'call', //callback key를 입력하면 함수 이름은 내부적으로 정한다.
+    			success : function(json){
+    				$('#divMessage').html(JSON.stringify(json));
+    				}
+    			})
+    		
+    	});
+    </script>
+</head>
+<body>
+	<div id="divMessage">
+	</div>
+		<button id="loadAjax">Ajax 블러오기</button>
+		
+</body>
+
+</html>
