@@ -313,7 +313,7 @@ public class MemberDao {
 		return count;
 	}
 	
-	public boolean isCheck(String id) {
+	public boolean isCheckId(String id) {
 		boolean isExisted = false;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -328,6 +328,42 @@ public class MemberDao {
 		try {
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(++index, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				isExisted = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return isExisted;
+	}
+	
+	public boolean isCheckEmail(String email) {
+		boolean isExisted = false;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int index = 0;
+		
+		con = ConnLocator.getConnection();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT m_email ");
+		sql.append("FROM member ");
+		sql.append("WHERE m_email = ? ");
+		try {
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(++index, email);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				isExisted = true;

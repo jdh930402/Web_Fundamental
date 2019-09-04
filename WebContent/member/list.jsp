@@ -27,8 +27,7 @@
 		int totalPage = 0; // 전체 페이지를 저장하는 변수
 		int startPage = 0; // 페이지 버튼의 시작 값을 설정하는 변수
 		int endPage = 0; // 페이지 버튼의 마지막 값을 설정하는 변수
-		int pageLength = 5; // 페이지버튼의 길이를 조절하는 변수
-
+		int pageLength = 10; // 페이지버튼의 길이를 조절하는 변수
 		MemberDao dao = MemberDao.getInstance();
 		ArrayList<MemberDto> list = dao.select(start, length);
 			/*
@@ -54,7 +53,6 @@
 			
 			// pageLength개 씩의 페이지를 판별하는 블록
 			int currentBlock = cPage % pageLength == 0 ? cPage/pageLength : cPage/pageLength+1;
-
 			// 마지막 블록에서는 마지막 페이지가 있어야하기때문에 totalBlock을 구한다.
 			int totalBlock = totalPage % pageLength == 0 ? totalPage/pageLength : totalPage/pageLength +1;
 			
@@ -164,7 +162,7 @@
 								<%
 									if(currentBlock != totalBlock){
 								%>
-									<li class="page-item" ><a class="page-link" href="javascript:util.pageLoading('<%=endPage%>','<%=length%>');"> &raquo;</a></li>
+									<li class="page-item" ><a class="page-link" href="javascript:util.pageLoading('<%=endPage+1%>','<%=length%>');"> &raquo;</a></li>
 								<%
 									} else{
 								%>
@@ -174,10 +172,10 @@
 								%>
 								</ul>
 							</nav>
+							</div>
 								<div class="text-right">
 									<a href="register.jsp?page=<%=cPage%>" class="btn btn-outline-primary">등록</a>
 								</div>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -195,8 +193,8 @@
 						alert('HTML Loading Error');
 					},
 					success : function(html){
-					$('#table_body').children().remove();
-					$('#table_body').html(html);						
+					$('.table-responsive-md').children().remove();
+					$('.table-responsive-md').html(html);						
 					}
 				});
 			}}
@@ -209,5 +207,3 @@
 		</script>
 		
 <%@include file="/inc/footer.jsp"%>
-
-

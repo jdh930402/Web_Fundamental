@@ -72,10 +72,10 @@
 				<a href="list.jsp?page=<%=cPage%>" class="btn btn-outline-success">취소</a>
 			</div>
                <script>
+            		let regEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
             	$(function(){
             		$('#saveMember').on('click', function(event){
             			event.preventDefault();
-            			let regEmail = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
             			if($('#name').val().length == 0){
             				$('#nameMessage').html("<span class = 'text-danger'>이름을 입력하세요.</span>");
             				$('#name').addClass('is-invalid');
@@ -88,9 +88,22 @@
             				$('#emailMessage').html("<span class = 'text-danger'>올바른 이메일 형식이 아닙니다</span>");
             				$('#email').addClass('is-invalid');
             				$('#email').focus();
+            			} else if( $('#pwd').val().length < 8 ||  $('#pwd').val().length > 16 ){
+            				$('#pwdMessage').html("<span class = 'text-danger'>비밀번호는 8~16자만 가능합니다.</span>");
+            				$('#pwd').addClass('is-invalid');
+            				$('#pwd').focus();
+            			} else if( $('#repwd').val().length == 0){
+            				$('#repwdMessage').html("<span class = 'text-danger'>필수 입력정보입니다.</span>");
+            				$('#repwd').addClass('is-invalid');
+            				$('#repwd').focus();
+            			} else if( $('#phone').val().length == 0 ){
+            				$('#phoneMessage').html("<span class = 'text-danger'>필수 입력정보입니다.</span>");
+            				$('#phone').addClass('is-invalid');
+            				$('#phone').focus();
             			}
-
-            			if($('#checkId').val() == 'no'){
+            			
+            			
+            			else if($('#checkId').val() == 'no'){
     						return;
     					}else{
     						f.submit();
@@ -104,8 +117,8 @@
             		$('#name').removeClass('is-invalid');
             		$('#nameMessage').html('');
             	});
-            	
-            	$("#id").on("keyup", function(){
+            
+            	$("#id").on("focusout", function(){
             		$('#id').removeClass('is-invalid');
             		$('#idMessage').html('');
             		if( $('#id').val().length >= 4 && $('#id').val().length <= 12 ){
@@ -128,16 +141,17 @@
             					}             					            					
             				}     				
             			});			
-            		}      		
+            		}else{
+            			$('#idMessage').html("<span class = 'text-danger'>사용할 수 없는 아이디입니다.</span>"); 
+            		}
             	});
             	
-            	$("#email").on("keyup", function(){
+            	$("#email").on("focusout", function(){
             		$('#email').removeClass('is-invalid');
-            		$('#emailMessage').html('');
-            		if( regEmail.test($('#email').val())== true){
+            		if(regEmail.test($('#email').val())== true){
             			$.ajax({
             				type : 'GET',
-            				url : 'check_email_ajax.jsp?id=' + $('#email').val(),
+            				url : 'check_email_ajax.jsp?email=' + $('#email').val(),
             				dataType : 'json',
             				error : function(){
             					alert('error');
@@ -154,9 +168,19 @@
             					}             					            					
             				}     				
             			});
-            			
-            		}      		
+            		}else{
+            			$('#emailMessage').html("<span class = 'text-danger'>이메일 주소를 다시 확인해주세요</span>"); 
+            		}    		
             	});
+            	
+            	$('#repwd').on('focusout',function(){
+            		if( $('#pwd').val() != $('#repwd').val() ){
+            			$('#repwdMessage').html("<span class='text-danger'>비밀번호가 일치하지 않습니다.");
+            			$('#repwd').val("");
+            		}
+            	});
+            	
+            	
             </script>
           </div>
         </div>

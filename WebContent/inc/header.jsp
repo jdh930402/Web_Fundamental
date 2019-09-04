@@ -20,6 +20,7 @@
 			cursor:pointer;
 		}
 	</style>
+
 </head>
 
 <body>
@@ -30,27 +31,45 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-				<li class="nav-item">
+			
+<%
+	String url = request.getRequestURI();
+	int index = 0;
+	if(url.endsWith("/register.jsp")){
+		index = 1;
+	} else if(url.endsWith("/login.jsp")){
+		index = 2;
+	} else if(url.startsWith("/notice")){
+		index = 3;
+	} else if(url.startsWith("/emp")){
+		index = 4;
+	} else if(url.startsWith("/dept")){
+		index = 5;
+	} else if(url.startsWith("/member")){
+		index = 6;
+	} 
+%>
+				<li class="nav-item <%if(index == 0){%> active <%}%>">
 					<a class="nav-link" href="/"><i class="fa fa-home"></i> Home</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item <%if(index == 3){%> active <%}%>">
 					<a class="nav-link" href="/notice/list.jsp"> <i class="fa fa-exclamation"></i> Notice</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item <%if(index == 4){%> active <%}%>">
 					<a class="nav-link" href="/emp/list.jsp"> <i class="fa fa-user"></i> Employee</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item <%if(index == 5){%> active <%}%>">
 					<a class="nav-link" href="/dept/list.jsp"> <i class="fa fa-building-o"></i> Department</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item <%if(index == 6){%> active <%}%>">
 					<a class="nav-link" href="/member/list.jsp">  <i class="fa fa-user"></i>  Member</a>
 				</li>
 			</ul>
-			<ul class="navbar-nav">
-				<li class="nav-item">
+			<ul class="navbar-nav ">
+				<li class="nav-item <%if(index == 1){%> active <%}%>">
 					<a class="nav-link" href="/member/register.jsp"><i class="fa fa-registered"></i> Register</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item <%if(index == 2){%> active <%}%>">
 					<a class="nav-link" href="/member/login.jsp"><i class="fa fa-user"></i> Login</a>
 				</li>
 			</ul>

@@ -1,13 +1,13 @@
 <%@page import="kr.co.kic.dev1.dao.MemberDao"%>
 <%@ page contentType="application/json; charset=utf-8"%>
 <%
-	String id = request.getParameter("id");
+	String email = request.getParameter("email");
 	MemberDao dao = MemberDao.getInstance();
-	if(dao.isCheckId(id)){
+	if(dao.isCheckEmail(email)){
 %>
 		{"result" : "ok"}
 <%
-	}else{
+	} else {
 %>
 		{"result" : "fail"}
 <%

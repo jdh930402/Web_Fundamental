@@ -83,7 +83,7 @@
 									if(list.size() != 0){ 
 									for(int i=0 ; i<list.size() ; i++){
 										EmpDto dto = list.get(i);
-										int index = totalRows-(cPage-1)*length-i;
+										int num = totalRows-(cPage-1)*length-i;
 										int no = dto.getNo();
 										String name = dto.getName();
 										String job = dto.getJob();
@@ -92,7 +92,7 @@
 									%>
 									
 									<tr>
-										<th scope="row"><%=index%></th>
+										<th scope="row"><%=num%></th>
 										<td><%=no%></td>
 										<td ><a class = "click_list" href = "view.jsp?no=<%=no%>&page=<%=cPage%>"><%=name%></a></td>
 										<td><%=job%></td>
