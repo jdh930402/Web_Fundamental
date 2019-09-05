@@ -46,3 +46,13 @@
 		</div>
 	</div>
 <%@ include file = "/inc/footer.jsp"%>
+
+<script>
+	const util = {
+			
+			
+	}
+	
+	$(window).
+	
+</script>
