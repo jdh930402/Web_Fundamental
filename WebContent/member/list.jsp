@@ -103,6 +103,7 @@
 									if(list.size() != 0){
 										for(int i=0; i< list.size(); i++){
 											MemberDto dto = list.get(i);
+											int num = totalRows-(cPage-1)*length-i;
 											int seq = dto.getSeq();
 											String name = dto.getName();
 											String id = dto.getId();
@@ -111,7 +112,7 @@
 											String regdate = dto.getRegdate();
 								%>
 									<tr>
-										<th scope="row"><%=seq%></th>
+										<th scope="row"><%=num%></th>
 										<td><%=name%></td>
 										<td><a href="view.jsp?seq=<%=seq%>&page=<%=cPage%>"><%=id%></a></td>
 										<td><%=email%></td>

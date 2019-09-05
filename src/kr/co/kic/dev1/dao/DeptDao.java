@@ -206,26 +206,20 @@ public class DeptDao {
 	}
 	
 	public int getCount() {
-		ArrayList<int> list = new ArrayList<int>();
+		int count = 0;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int index = 0;
 		try {
 			con = ConnLocator.getConnection();
 			StringBuffer sql = new StringBuffer();
-			sql.append("");
-			sql.append("");
+			sql.append("SELECT COUNT(deptno) ");
+			sql.append("FROM dept ");
 			pstmt = con.prepareStatement(sql.toString());
-			pstmt.setInt(++index, );
-			pstmt.setString(++index, );
 			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				index = 0;
-				int temp1 = rs.getInt(++index);
-				String temp2 = rs.getString(++index);
-				
-				list.add(new int());
+			if (rs.next()) {
+				int index = 0;
+				count = rs.getInt(++index);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -241,8 +235,6 @@ public class DeptDao {
 				e.printStackTrace();
 			}
 		}
-		return list;
-	}
-	
+		return count;
 	}
 }

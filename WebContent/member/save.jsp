@@ -10,7 +10,7 @@
 	String phone = request.getParameter("phone");
 	
 	MemberDao dao = MemberDao.getInstance();
-	MemberDto dto = new MemberDto(name, id, email, pwd, phone);
+	MemberDto dto = new MemberDto(id, email, name, pwd, phone);
 	if(dao.insert(dto)){
 %>
 	<script>

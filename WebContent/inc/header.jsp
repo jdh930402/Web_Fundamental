@@ -1,4 +1,25 @@
+<%@page import="kr.co.kic.dev1.dto.MemberDto"%>
 <%@ page pageEncoding="UTF-8"%>
+<%
+	MemberDto memberDto = (MemberDto)session.getAttribute("member");
+
+
+	String url = request.getRequestURI();
+	int index = 0;
+	if(url.endsWith("/register.jsp")){
+		index = 1;
+	} else if(url.startsWith("/notice")){
+		index = 2;
+	} else if(url.startsWith("/emp")){
+		index = 3;
+	} else if(url.startsWith("/dept")){
+		index = 4;
+	} else if(url.startsWith("/member")){
+		index = 5;
+	} else if(url.startsWith("/file")){
+		index = 6;
+	}
+%>
 <!doctype html>
 <html lang="en">
 
@@ -19,6 +40,10 @@
 		a.click_list:hover{
 			cursor:pointer;
 		}
+		
+		div.message{
+			height: 15px;
+		}
 	</style>
 
 </head>
@@ -32,45 +57,36 @@
 		<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
 			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
 			
-<%
-	String url = request.getRequestURI();
-	int index = 0;
-	if(url.endsWith("/register.jsp")){
-		index = 1;
-	} else if(url.endsWith("/login.jsp")){
-		index = 2;
-	} else if(url.startsWith("/notice")){
-		index = 3;
-	} else if(url.startsWith("/emp")){
-		index = 4;
-	} else if(url.startsWith("/dept")){
-		index = 5;
-	} else if(url.startsWith("/member")){
-		index = 6;
-	} 
-%>
 				<li class="nav-item <%if(index == 0){%> active <%}%>">
 					<a class="nav-link" href="/"><i class="fa fa-home"></i> Home</a>
 				</li>
-				<li class="nav-item <%if(index == 3){%> active <%}%>">
+				<li class="nav-item <%if(index == 2){%> active <%}%>">
 					<a class="nav-link" href="/notice/list.jsp"> <i class="fa fa-exclamation"></i> Notice</a>
 				</li>
-				<li class="nav-item <%if(index == 4){%> active <%}%>">
+				<li class="nav-item <%if(index == 3){%> active <%}%>">
 					<a class="nav-link" href="/emp/list.jsp"> <i class="fa fa-user"></i> Employee</a>
 				</li>
-				<li class="nav-item <%if(index == 5){%> active <%}%>">
+				<li class="nav-item <%if(index == 4){%> active <%}%>">
 					<a class="nav-link" href="/dept/list.jsp"> <i class="fa fa-building-o"></i> Department</a>
 				</li>
+				<li class="nav-item <%if(index == 5){%> active <%}%>">
+					<a class="nav-link" href="/member/list.jsp">  <i class="fa fa-user"></i> Member</a>
+				</li>
 				<li class="nav-item <%if(index == 6){%> active <%}%>">
-					<a class="nav-link" href="/member/list.jsp">  <i class="fa fa-user"></i>  Member</a>
+					<a class="nav-link" href="/file/index.jsp">  <i class="fa fa-upload"></i> Upload File</a>
 				</li>
 			</ul>
 			<ul class="navbar-nav ">
 				<li class="nav-item <%if(index == 1){%> active <%}%>">
 					<a class="nav-link" href="/member/register.jsp"><i class="fa fa-registered"></i> Register</a>
 				</li>
-				<li class="nav-item <%if(index == 2){%> active <%}%>">
+				
+				<li class="nav-item">
+				<%if(memberDto == null){ %>
 					<a class="nav-link" href="/member/login.jsp"><i class="fa fa-user"></i> Login</a>
+					<%} else{%>
+					<a class="nav-link" href="/member/logout.jsp"><i class="fa fa-user"></i> Logout<%=memberDto.getName()%>님 환영합니다.</a>
+					<%} %>
 				</li>
 			</ul>
 		</div>

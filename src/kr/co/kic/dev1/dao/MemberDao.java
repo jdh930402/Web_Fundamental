@@ -204,7 +204,7 @@ public class MemberDao {
 				String name = rs.getString(++index);
 				String phone = rs.getString(++index);
 				String regdate = rs.getString(++index);
-				list.add(new MemberDto(seq, id, email, name, phone, regdate ));
+				list.add(new MemberDto(seq, id, email, name, phone, regdate));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -222,7 +222,7 @@ public class MemberDao {
 		}
 		return list;
 	}
-	
+
 	public String selectJson(int start, int length) {
 		JSONObject jsonObj = new JSONObject();
 		JSONArray jsonArray = new JSONArray();
@@ -241,7 +241,7 @@ public class MemberDao {
 			pstmt.setInt(++index, start);
 			pstmt.setInt(++index, length);
 			rs = pstmt.executeQuery();
-			
+
 			JSONObject item = null;
 			while (rs.next()) {
 				index = 0;
@@ -277,14 +277,14 @@ public class MemberDao {
 		}
 		return jsonObj.toString();
 	}
-	
+
 	public int getRows() {
 		int count = 0;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int index = 0;
-			
+
 		try {
 			con = ConnLocator.getConnection();
 			StringBuffer sql = new StringBuffer();
@@ -292,7 +292,7 @@ public class MemberDao {
 			sql.append("FROM member ");
 			pstmt = con.prepareStatement(sql.toString());
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				index = 0;
 				count = rs.getInt(++index);
 			}
@@ -312,14 +312,14 @@ public class MemberDao {
 		}
 		return count;
 	}
-	
+
 	public boolean isCheckId(String id) {
 		boolean isExisted = false;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int index = 0;
-		
+
 		con = ConnLocator.getConnection();
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT m_id ");
@@ -329,7 +329,7 @@ public class MemberDao {
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(++index, id);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				isExisted = true;
 			}
 		} catch (SQLException e) {
@@ -348,14 +348,14 @@ public class MemberDao {
 		}
 		return isExisted;
 	}
-	
+
 	public boolean isCheckEmail(String email) {
 		boolean isExisted = false;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int index = 0;
-		
+
 		con = ConnLocator.getConnection();
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT m_email ");
@@ -365,7 +365,7 @@ public class MemberDao {
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setString(++index, email);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
+			if (rs.next()) {
 				isExisted = true;
 			}
 		} catch (SQLException e) {
@@ -384,5 +384,50 @@ public class MemberDao {
 		}
 		return isExisted;
 	}
-	
+
+	public MemberDto isMember(MemberDto m) {
+		MemberDto obj = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int index = 0;
+
+		try {
+			con = ConnLocator.getConnection();
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT m_seq, m_id, m_email, m_name, m_phone, date_format(m_regdate,'%Y/%m/%d') ");
+			sql.append("FROM member ");
+			sql.append("WHERE m_email = ? AND m_pwd = PASSWORD(?) ");
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(++index, m.getEmail());
+			pstmt.setString(++index, m.getPwd());
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				index = 0;
+				int seq = rs.getInt(++index);
+				String id = rs.getString(++index);
+				String email = rs.getString(++index);
+				String name = rs.getString(++index);
+				String phone = rs.getString(++index);
+				String regdate = rs.getString(++index);
+				obj = new MemberDto(seq, id, email, name, phone, regdate);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return obj;
+	}
 }

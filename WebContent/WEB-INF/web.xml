@@ -5,7 +5,9 @@
   <servlet-name>hello</servlet-name>
   <servlet-class>hello.HelloServlet</servlet-class>
   </servlet>
-  
+  <session-config>
+  <session-timeout>30</session-timeout>
+  </session-config>
   <servlet-mapping>
   <servlet-name>hello</servlet-name>
   <url-pattern>/yes</url-pattern>

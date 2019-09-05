@@ -1,5 +1,9 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@include file="/inc/header.jsp" %>
+<%
+	if(memberDto != null){
+%>
+
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb justify-content-end">
 			<li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -75,4 +79,14 @@
 
 		</div>
 	</div>
+	<%
+		} else{
+	%>	
+	<script>
+		alert('접근할 수 없는 권한입니다.');
+		location.href = 'list.jsp';
+	</script>	
+	<%	
+		}
+	%>
 <%@include file="/inc/footer.jsp"%>
