@@ -1,4 +1,4 @@
-	<%@ page pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>
 <%@ include file = "/inc/header.jsp" %>
 <%@page import="java.util.ArrayList"%>
 <%@page import="kr.co.kic.dev1.dto.DeptDto"%>
@@ -18,10 +18,8 @@
 	} catch(NumberFormatException e){
 		cPage = 1;
 	}
-	
 
 %>
-
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb justify-content-end">
 			<li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -47,7 +45,6 @@
 	</div>
 <script>
 	$(function(){
-		
 		$.ajax({
 			type : 'GET',
 			dataType : 'html',
@@ -61,6 +58,10 @@
 			}
 		}); // 홈페이지 접속 ajax
 		
-	});
+		const a = {"Hello" : "world"};
+			
+			
+		});
+	
 </script>
 <%@ include file = "/inc/footer.jsp"%>

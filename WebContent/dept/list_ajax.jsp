@@ -2,7 +2,7 @@
 <%@page import="kr.co.kic.dev1.dto.DeptDto"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="kr.co.kic.dev1.dao.DeptDao"%>
-<%@ page language="java" contentType="application/html; charset=utf-8"%>
+<%@page pageEncoding="utf-8"%>
 <%
 	String tempPage = request.getParameter("page");
 	int cPage = 0;
@@ -14,10 +14,19 @@
 	}catch(NumberFormatException e){
 		cPage = 1;
 	}
-	
+	DeptDao dao = DeptDao.getInstance();
+	int tableLength = 5;
 	int length = 10;
 	int start =  (cPage-1)*length;
-	DeptDao dao = DeptDao.getInstance();
+	int totalRows = dao.getCount();
+	int totalPage = totalRows%tableLength==0 ? totalRows/tableLength : totalRows/tableLength+1;	
+	int currentBlock = (cPage-1)/tableLength;
+ 	int totalBlock = totalPage/tableLength;
+	int startPage = (currentBlock*tableLength)+1; 
+	int endPage = (currentBlock+1)*tableLength;
+	if(totalBlock == currentBlock){
+		endPage = totalPage;
+	}
 	ArrayList<DeptDto> list = dao.select(start, length);
 %>
 
@@ -54,7 +63,6 @@
 			<td><%=loc%></td>
 		</tr>	
 		
-</script>
 <% 
 		}
 	} else {	
@@ -74,17 +82,13 @@
 		<li class="page-item disabled">
 			<a class="page-link" href="#" tabindex="-1">&laquo;</a>
 		</li>
-		<li class="page-item"><a class="page-link" href="#">1</a></li>
-		<li class="page-item"><a class="page-link" href="#">2</a></li>
-		<li class="page-item"><a class="page-link" href="#">3</a></li>
-		<li class="page-item"><a class="page-link" href="#">4</a></li>
-		<li class="page-item"><a class="page-link" href="#">5</a></li>
-		<li class="page-item"><a class="page-link" href="#">6</a></li>
-		<li class="page-item"><a class="page-link" href="#">7</a></li>
-		<li class="page-item"><a class="page-link" href="#">8</a></li>
-		<li class="page-item"><a class="page-link" href="#">9</a></li>
-		<li class="page-item"><a class="page-link" href="#">10</a></li>
 		
+		<% 
+		
+		for(int i = startPage ; i <= endPage ; i++){
+		%>
+		<li class="page-item"><a class="page-link" href="#"><%=i%></a></li>
+		<%}%>
 		<%-- >>버튼 --%>
 		<li class="page-item">
 			<a class="page-link" href="#">&raquo;</a>
