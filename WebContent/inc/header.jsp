@@ -75,6 +75,9 @@
 				<li class="nav-item <%if(index == 6){%> active <%}%>">
 					<a class="nav-link" href="/file/index.jsp">  <i class="fa fa-upload"></i> Upload File</a>
 				</li>
+				<li class="nav-item <%if(index == 7){%> active <%}%>">
+					<a class="nav-link" href="/crawling/index.jsp">  <i class="fa fa-upload"></i> crawling</a>
+				</li>
 			</ul>
 			<ul class="navbar-nav ">
 				<li class="nav-item <%if(index == 1){%> active <%}%>">

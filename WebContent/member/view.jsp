@@ -70,8 +70,6 @@
               <input type="hidden" name = "page" value = "<%=cPage%>">
             </form>
             <div class="text-right">
-				<a href="" id = "modifyMember" class="btn btn-outline-primary">수정</a>
-				<a href="" id = "deleteMember" class="btn btn-outline-danger">삭제</a>
 				<a href="list.jsp?page=<%=cPage%>" class="btn btn-outline-success">리스트</a>
 			</div>
             

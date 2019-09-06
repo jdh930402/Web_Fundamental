@@ -45,14 +45,22 @@
 			</div>
 		</div>
 	</div>
-<%@ include file = "/inc/footer.jsp"%>
-
 <script>
-	const util = {
-			
-			
-	}
-	
-	$(window).
-	
+	$(function(){
+		
+		$.ajax({
+			type : 'GET',
+			dataType : 'html',
+			url : 'list_ajax.jsp?page='+<%=cPage%>,
+			error : function(){
+				alert('환영합니다.');
+			},
+			success : function(html){
+				$('.table-responsive-md').children().remove();
+				$('.table-responsive-md').html(html);
+			}
+		}); // 홈페이지 접속 ajax
+		
+	});
 </script>
+<%@ include file = "/inc/footer.jsp"%>

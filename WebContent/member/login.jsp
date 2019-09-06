@@ -22,6 +22,19 @@
                 <input type="password" class="form-control" placeholder="Your Password *" id="pwd" name = "pwd"/>
                 <div id = "pwdMessage" class = "message" ></div>
               </div>
+              
+              <div class="form-row d-flex align-items-center">
+                      <div class="form-group col-md-8">
+                        <img class="form-control" src="" id="img_form_url"/>
+                      </div>
+                      <div class="form-group col-md-4">
+                        <a href="" id="refreshNumber" class="btn btn-info btn-lg btn-block"><i class="fa fa-refresh" aria-hidden="true"></i> REFRESH</a>
+                      </div>
+              </div>
+              <div class="form-group">
+             	<input type="text" name="captchaCode" id="captchaCode" class="form-control" placeholder="캡차코드를 입력하세요" value="" />
+              </div>
+                 
               <div class="form-group">
                 <input type="submit" class="btn btn-primary" id = "checkLogin" value="Login" />
               </div>
@@ -37,6 +50,8 @@
  <script>
 	 	$('#checkLogin').on('click', function(event){
  			event.preventDefault();	
+ 			let captchaKey = "";
+ 			
 	 		if( $('#eamil').val().length == 0){
  				$('#emailMessage').html("<span class = 'text-danger'>아이디를 입력하세요.</span>");
  				$('#email').addClass('is-invalid');
@@ -48,7 +63,37 @@
 	 		}else{
 	 			f.submit();
 	 		}
-	 	});
+	 	}); // login이벤트 종료 
+	 	
+	 	var loadImage = function(){
+	 		$.ajax({
+	 			url :'captcha/getKey.jsp',
+	 			type :'GET',
+	 			dataType :'json',
+	 			error : function(){
+	 				alert('실패');
+	 			},
+	 			success : function(json){
+	 				console.log(json);
+	 				captchaKey = json.key;
+	 				$.ajax({
+	 					type : 'GET',
+	 					url : 'captcha/getImage.jsp?key='+captchaKey,
+	 					xhrFields : {
+	 						responseType : 'blob'
+	 					},
+	 					success : function(data){
+	 						const url = window.URL || window.webketURL;
+	 						const src = url.createObjectURL(data);
+	 						$('#img_form_url').attr('src',src);
+	 						
+	 					}
+	 				});
+	 			}
+	 		});
+	 	}
+	 	loadImage();
+	 	
 
  </script>
 	 <%} else{ %>
