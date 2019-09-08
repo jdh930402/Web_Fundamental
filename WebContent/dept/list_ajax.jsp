@@ -15,15 +15,14 @@
 		cPage = 1;
 	}
 	DeptDao dao = DeptDao.getInstance();
-	int tableLength = 5;
-	int length = 10;
+	int length = 5;
 	int start =  (cPage-1)*length;
 	int totalRows = dao.getCount();
-	int totalPage = totalRows%tableLength==0 ? totalRows/tableLength : totalRows/tableLength+1;	
-	int currentBlock = (cPage-1)/tableLength;
- 	int totalBlock = totalPage/tableLength;
-	int startPage = (currentBlock*tableLength)+1; 
-	int endPage = (currentBlock+1)*tableLength;
+	int totalPage = totalRows%length==0 ? totalRows/length : totalRows/length+1;	
+	int currentBlock = cPage % length == 0 ?cPage/length : cPage/length + 1;;
+ 	int totalBlock = totalPage % length == 0 ? totalPage/length : totalPage/length +1;
+	int startPage = (currentBlock-1)*length+1; 
+	int endPage = (currentBlock-1)*length + length;
 	if(totalBlock == currentBlock){
 		endPage = totalPage;
 	}
@@ -53,11 +52,12 @@
 	if(list.size() != 0){
 		for(int i=0; i<list.size() ; i++){
 			DeptDto dto = list.get(i);
+			int num = totalRows-(cPage-1)*length-i;
 			int no = dto.getNo();
 			String name = dto.getName();
 			String loc = dto.getLoc();
 %>
-			<th scope="row"><%=list.size()-i%></th>
+			<th scope="row"><%=num%></th>
 			<td><%=no%></td>
 			<td><a class = "click_list" href = "view.jsp?no=<%=no%>"><%=name%></a></td>
 			<td><%=loc%></td>
@@ -79,19 +79,33 @@
 <nav aria-label="Page navigation example">
 	<ul class="pagination pagination-lg justify-content-center">
 		<%-- <<버튼 --%>
+		<%if(currentBlock == 1){ %>
 		<li class="page-item disabled">
-			<a class="page-link" href="#" tabindex="-1">&laquo;</a>
+			<a class="page-link" href="javascript:pageLoad(<%=startPage-1%>)" tabindex="-1">&laquo;</a>
 		</li>
-		
+		<%} else{%>
+		<li class="page-item">
+			<a class="page-link" href="javascript:pageLoad(<%=startPage-1%>)" tabindex="-1">&laquo;</a>
+		</li>
 		<% 
-		
+		}
 		for(int i = startPage ; i <= endPage ; i++){
 		%>
-		<li class="page-item"><a class="page-link" href="#"><%=i%></a></li>
+		<li class="page-item  <%if(cPage == i){%>active<%}%> "><a class="page-link" href="javascript:pageLoad(<%=i%>)" ><%=i%></a></li>
 		<%}%>
 		<%-- >>버튼 --%>
-		<li class="page-item">
-			<a class="page-link" href="#">&raquo;</a>
+		<%if(currentBlock == totalBlock){ %>
+		<li class="page-item disabled">
+			<a class="page-link" href="javascript:pageLoad(<%=endPage%>)">&raquo;</a>
 		</li>
+		<%}else{ %>
+				<li class="page-item ">
+			<a class="page-link" href="javascript:pageLoad(<%=endPage+1%>)">&raquo;</a>
+		</li>
+		<%} %>
 	</ul>
 </nav>
+
+<script>
+
+</script>

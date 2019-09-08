@@ -85,8 +85,7 @@
 	 					success : function(data){
 	 						const url = window.URL || window.webketURL;
 	 						const src = url.createObjectURL(data);
-	 						$('#img_form_url').attr('src',src);
-	 						
+	 						$('#img_form_url').attr('src',src);	
 	 					}
 	 				});
 	 			}

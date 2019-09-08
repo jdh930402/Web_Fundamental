@@ -44,11 +44,13 @@
 		</div>
 	</div>
 <script>
-	$(function(){
+	const pageLoad = function(cPage){
+		let url = 'http://localhost/dept/list.jsp?page=' + cPage;
+		history.pushState(null, null, url); 
 		$.ajax({
 			type : 'GET',
 			dataType : 'html',
-			url : 'list_ajax.jsp?page='+<%=cPage%>,
+			url : 'list_ajax.jsp?page=' + cPage,
 			error : function(){
 				alert('환영합니다.');
 			},
@@ -56,12 +58,42 @@
 				$('.table-responsive-md').children().remove();
 				$('.table-responsive-md').html(html);
 			}
-		}); // 홈페이지 접속 ajax
-		
-		const a = {"Hello" : "world"};
+		}); // 버튼을 눌렀을때 ajax(메서드로 클릭시 사용가능)	
+	}
+
+	$.ajax({
+		type : 'GET',
+		dataType : 'html',
+		url : 'list_ajax.jsp?page=<%=cPage%>',
+		error : function(){
+			alert('환영합니다.');
+		},
+		success : function(html){
+			$('.table-responsive-md').children().remove();
+			$('.table-responsive-md').html(html);
+		}
+	}); // 홈페이지 접속 ajax(window.onload시 자동실행)
+
+	$(window).on('popstate',function(){
+		let url = location.search;
+		let cPage = new URLSearchParams(url).get("page");
+		console.log(cPage);
+		$.ajax({
+			data : 'GET',
+			dataType : 'html',
+			url : 'list_ajax.jsp?page=' + cPage,
+			error : function(){
+				alert('popstate error');
+			},
+			success : function(html){
+				$('.table-responsive-md').children().remove();
+				$('.table-responsive-md').html(html);
+			}
+		});
+			
+			
 			
 			
 		});
-	
 </script>
-<%@ include file = "/inc/footer.jsp"%>
+<%@ include file = "/inc/footer.jsp"%>	

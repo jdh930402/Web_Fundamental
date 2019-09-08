@@ -10,7 +10,7 @@
 	dto = dao.isMember(dto);
 	if(dto != null ){
 		// 세션 유효 기본 시간을 초단위로 바꾼다.
-		session.setMaxInactiveInterval(30);
+		// session.setMaxInactiveInterval(30);
 		// 세션 유효 기본 시간은 30분 (web.xml 확인가능)
 		session.setAttribute("member", dto);
 %>
