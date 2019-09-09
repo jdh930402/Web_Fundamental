@@ -3,7 +3,7 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb justify-content-end">
       <li class="breadcrumb-item"><a href="/">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Member</li>
+      <li class="breadcrumb-item active" aria-current="page">QRCode</li>
     </ol>
   </nav>
   <div class="container">
@@ -13,7 +13,7 @@
           <div class="card-body">
             <h5 class="card-title">Qrcode Generator</h5>
             
-               <form name = 'f' method = 'post' action = 'check_login.jsp'>
+               <form class="form-horizontal" name = 'f' method = 'post' action = 'createImage.jsp'>
               <div class="form-group">
                 <input type="text" class="form-control" id="url" name = "url" value="http://"/>
                 <div id = "emailMessage" class = "message"> </div>
@@ -37,15 +37,59 @@
     </div>
   </div>
  <script>
- 	$('#refreshNumber').on('click', function(event){
- 		event.preventDefault();
- 		if( $('#url').val() == "" ){
- 			alert('URL을 입력하세요.');
- 			$('#url').focus();
- 			return;
- 		}
- 		
- 		$.ajax({
+	// 키보드로 엔터버튼을 누른 경우
+	$('.form-horizontal').on('keydown', function(event){
+	 	if( event.keyCode == 13){
+	 		event.preventDefault();
+	 		if( $('#url').val() == "" ){
+	 			alert('URL을 입력하세요.');
+	 			$('#url').focus();
+	 			return;
+	 		}
+	 		
+	 		if( ($('#url').val().endsWith("net") || $('#url').val().endsWith("co.kr") || $('#url').val().endsWith("com")) === false ){
+	 			alert('URL을 .');
+	 			$('#url').focus();
+	 			return;
+	 		}
+	 		
+	 		$.ajax({
+	 			type : 'GET',
+	 			url : 'createImage.jsp?url=' + $('#url').val(),
+	 			dataType : 'json',
+	 			error : function(){
+	 				alert('이미지 에러');
+	 			},
+	 			success : function(json){
+	 				console.log(json);
+	 				if(json.result == "ok"){
+	 					let imageSrc = json.path;
+	 					$('#img_form_url').attr('src', imageSrc);
+	 				}else{
+	 					alert('이미지가 생성되지 않았습니다.');
+	 				}
+	 			}
+	 		});
+		}
+	});
+	
+	
+	// refresh버튼을 누른 경우 
+	$('#refreshNumber').on('click', function(event){
+		event.preventDefault();
+		if( $('#url').val() == "" ){
+			alert('URL을 입력하세요.');
+			$('#url').focus();
+			return;
+		}
+		
+		if( ($('#url').val().endsWith("net") || $('#url').val().endsWith("co.kr") || $('#url').val().endsWith("com")) === false ){
+			alert('올바른 URL이 아닙니다.');
+			$('#url').focus();
+			return;
+		}
+		
+		$.ajax({
  			type : 'GET',
  			url : 'createImage.jsp?url=' + $('#url').val(),
  			dataType : 'json',
@@ -62,7 +106,8 @@
  				}
  			}
  		});
+	});
  		
- 	});
+ 		
  </script>
 <%@include file="/inc/footer.jsp"%>

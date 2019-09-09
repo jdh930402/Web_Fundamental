@@ -4,7 +4,6 @@
 <%@include file = "/inc/header.jsp" %>
 	<!-- datepicker widget css -->
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
-	 
 	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 
 <%
@@ -13,18 +12,17 @@
 	String start = request.getParameter("start");
 	String end = request.getParameter("end");
 	
+	Calendar calendar = Calendar.getInstance();
+	String cDate = Utility.getDate(calendar, "yyyyMMdd");
 	if (coin == null){
 		coin = "bitcoin";
 	}
-	Calendar cal = Calendar.getInstance();
-	
-	if(start ==null){
-	
+	if(start == null){
+		start = cDate;
 	}
 	if(end == null){
-
+		end = cDate;
 	}
-
 	
 %>
 
@@ -63,19 +61,6 @@
 	</div>
 <script>
 	
-	$.ajax({
-		type : 'GET',
-		dataType : 'html',
-		url : 'crawling2_ajax.jsp?coin=' + $('#coin option:selected').val(),
-		error : function(){
-			alert('error');
-		},
-		success : function(html){
-			$('.table-responsive-md').children().remove();
-			$('.table-responsive-md').html(html);
-		}
-	});
-	
 	$('#coin').on('change', function(){
 		let url = "http://localhost/crawling/crawling2.jsp?coin="+ $('#coin option:selected').val();
 		history.pushState(null,null,url);
@@ -99,6 +84,9 @@
 		let start = new URLSearchParams(url).get("start");
 		let end = new URLSearchParams(url).get("end");
 		
+		if (coin == null){
+			coin = "bitcoin";
+		}
 		$.ajax({
 			type : 'GET',
 			dataType : 'html',
@@ -115,29 +103,41 @@
 	
 	
 	$(function() {
-	    $('.testDatepicker').datepicker({
-	         showButtonPanel: true, 
-	         currentText: '오늘 날짜', 
-	         closeText: '닫기', 
-	         dateFormat: "yymmdd"
-	  });
-	    
-	    $('#btnOk').on('click',function(){
-	    	let url = "http://localhost/crawling/crawling2.jsp?coin="+ $('#coin option:selected').val() + "&start=" + $('#start').val() + "&end=" + $('#end').val();
-			history.pushState(null,null,url);
-	    	$.ajax({
-				type : 'GET',
-				dataType : 'html',
-				url : 'crawling2_ajax.jsp?coin=' + $('#coin option:selected').val() + "&start=" + $('#start').val() + "&end=" + $('#end').val(),
-				error : function(){
-					alter('error');
-				},
-				success : function(html){
-					$('.table-responsive-md').children().remove();
-					$('.table-responsive-md').html(html);
-				}			
-			});
-	    });
+		$.ajax({
+			type : 'GET',
+			dataType : 'html',
+			url : 'crawling2_ajax.jsp?coin=' + $('#coin option:selected').val() + "&start=" + $('#start').val() + "&end=" + $('#end').val(),
+			error : function(){
+				alert('error');
+			},
+			success : function(html){
+				$('.table-responsive-md').children().remove();
+				$('.table-responsive-md').html(html);
+			}
+		});
+		    $('.testDatepicker').datepicker({
+		         showButtonPanel: true, 
+		         currentText: '오늘 날짜', 
+		         closeText: '닫기', 
+		         dateFormat: "yymmdd"
+		  });
+		    
+		    $('#btnOk').on('click',function(){
+		    	let url = "http://localhost/crawling/crawling2.jsp?coin="+ $('#coin option:selected').val() + "&start=" + $('#start').val() + "&end=" + $('#end').val();
+				history.pushState(null,null,url);
+		    	$.ajax({
+					type : 'GET',
+					dataType : 'html',
+					url : 'crawling2_ajax.jsp?coin=' + $('#coin option:selected').val() + "&start=" + $('#start').val() + "&end=" + $('#end').val(),
+					error : function(){
+						alter('error');
+					},
+					success : function(html){
+						$('.table-responsive-md').children().remove();
+						$('.table-responsive-md').html(html);
+					}			
+				});
+		    });
 	});
 </script>
 

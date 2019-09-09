@@ -1,3 +1,4 @@
+<%@page import="kr.co.kic.dev1.util.Utility"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="org.jsoup.nodes.Element"%>
 <%@page import="org.jsoup.select.Elements"%>
@@ -11,18 +12,20 @@
 	String coin = request.getParameter("coin");
 	String start = request.getParameter("start");
 	String end = request.getParameter("end");
+	
 	if (coin == null){
 		coin = "bitcoin";
 	}
-	Calendar cal = Calendar.getInstance();
-	String year = String.valueOf(cal.get(Calendar.YEAR));
-	String month = String.valueOf(cal.get(Calendar.MONTH));
-	String date = String.valueOf(cal.get(Calendar.DATE));
+	Calendar calendar = Calendar.getInstance();
+	String Ddate = Utility.getDate(calendar, "yyyymmdd");
+
+	
+	
 	if(start ==null){
-		start = year+month+date;
+		start = Ddate;
 	}
 	if(end == null){
-		end = year+month+date;
+		end = Ddate;
 	}
 	
 	

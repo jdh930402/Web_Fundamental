@@ -52,6 +52,7 @@
 	 	$('#checkLogin').on('click', function(event){
  			event.preventDefault();	
  			
+ 			// 유효성 검사
 	 		if( $('#eamil').val().length == 0){
  				$('#emailMessage').html("<span class = 'text-danger'>아이디를 입력하세요.</span>");
  				$('#email').addClass('is-invalid');
@@ -65,6 +66,7 @@
 	 			$('#captchaCode').addClass('is-invalid');
 	 			$('#captchaCode').focus();
 	 		}else{
+	 			// 유효성검사를 만족하면 캡차의 key값과 value값을 비교하는 과정
 	 			$.ajax({
 	 				type : 'GET',
 	 				dataType : 'json',
@@ -82,11 +84,13 @@
 	 		}
 	 	}); // login이벤트 종료 
 	 	
+	 	// refresh 버튼을 누를 경우 loadImage함수를 실행
 	 	$('#refreshNumber').on('click', function(event){
 	 		event.preventDefault();
 	 		loadImage();
 	 	});
 	 	
+	 	// loadImage함수가 발생하면 캡차 이미지를 불러온다.
 	 	var loadImage = function(){
 	 		$.ajax({
 	 			url :'captcha/getKey.jsp',
@@ -113,6 +117,8 @@
 	 			}
 	 		});
 	 	}
+	 	
+	 	// 홈페이지 로드와 동시에 실행
 	 	loadImage();
 	 	
 

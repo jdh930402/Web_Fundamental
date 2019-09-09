@@ -22,6 +22,10 @@
 		index = 7;
 	} else if(url.endsWith("/crawling2.jsp")){
 		index = 8;
+	} else if(url.startsWith("/qrcode")){
+		index = 9;
+	} else if(url.startsWith("/shorten")){
+		index = 10;
 	}
 %>
 <!doctype html>
@@ -83,13 +87,13 @@
 				<li class="nav-item <%if(index == 7){%> active <%}%>">
 					<a class="nav-link" href="/crawling/crawling1.jsp">  <i class="fa fa-files-o"></i> crawling1</a>
 				</li>
-				<li class="nav-item <%if(index == 7){%> active <%}%>">
+				<li class="nav-item <%if(index == 8){%> active <%}%>">
 					<a class="nav-link" href="/crawling/crawling2.jsp">  <i class="fa fa-files-o"></i> crawling2</a>
 				</li>
-				<li class="nav-item <%if(index == 7){%> active <%}%>">
-					<a class="nav-link" href="/qrcode/index.jsp">  <i class="fa fa-files-o"></i> Qrcode</a>
+				<li class="nav-item <%if(index == 9){%> active <%}%>">
+					<a class="nav-link" href="/qrcode/index.jsp">  <i class="fa fa-files-o"></i> QRCode</a>
 				</li>
-				<li class="nav-item <%if(index == 7){%> active <%}%>">
+				<li class="nav-item <%if(index == 10){%> active <%}%>">
 					<a class="nav-link" href="/shorten/index.jsp">  <i class="fa fa-files-o"></i> shortenURL</a>
 				</li>
 			</ul>
