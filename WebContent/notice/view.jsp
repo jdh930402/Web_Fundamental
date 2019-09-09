@@ -1,3 +1,4 @@
+<%@page import="kr.co.kic.dev1.util.Utility"%>
 <%@page import="kr.co.kic.dev1.dto.NoticeDto"%>
 <%@page import="kr.co.kic.dev1.dao.NoticeDao"%>
 <%@ page pageEncoding="UTF-8"%>
@@ -11,7 +12,7 @@
 	}
 	NoticeDao dao = NoticeDao.getInstance();
 	NoticeDto dto = dao.select(num);
-	
+	Utility util = new Utility();
 	if( dto != null){
 		String writer = dto.getWriter();
 		String title = dto.getTitle();
@@ -39,19 +40,19 @@
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="writer">작성자</label>
 								<div class="col-sm-10">
-									<p><%=writer %></p><br>
+									<p><%=util.getConvert(writer)%></p><br>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="title">제목</label>
 								<div class="col-sm-10">
-									<p><%=title%></p><br>
+									<p><%=util.getConvert(title)%></p><br>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="content">내용</label>
 								<div class="col-sm-10">
-									<p><%=content%></p><br>
+									<p><%= util.getConvert(content)%></p><br>
 								</div>
 							</div>
 							

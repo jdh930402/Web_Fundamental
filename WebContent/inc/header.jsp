@@ -18,6 +18,10 @@
 		index = 5;
 	} else if(url.startsWith("/file")){
 		index = 6;
+	} else if(url.endsWith("/crawling1.jsp")){
+		index = 7;
+	} else if(url.endsWith("/crawling2.jsp")){
+		index = 8;
 	}
 %>
 <!doctype html>
@@ -35,6 +39,7 @@
 	<!-- Font Awesome CSS -->
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 	<script src="/js/jquery-3.4.1.js"></script>
+	
 	<title>Bootstrap Template</title>
 	<style>
 		a.click_list:hover{
@@ -76,19 +81,29 @@
 					<a class="nav-link" href="/file/index.jsp">  <i class="fa fa-upload"></i> Upload File</a>
 				</li>
 				<li class="nav-item <%if(index == 7){%> active <%}%>">
-					<a class="nav-link" href="/crawling/crawling.jsp">  <i class="fa fa-upload"></i> crawling</a>
+					<a class="nav-link" href="/crawling/crawling1.jsp">  <i class="fa fa-files-o"></i> crawling1</a>
+				</li>
+				<li class="nav-item <%if(index == 7){%> active <%}%>">
+					<a class="nav-link" href="/crawling/crawling2.jsp">  <i class="fa fa-files-o"></i> crawling2</a>
+				</li>
+				<li class="nav-item <%if(index == 7){%> active <%}%>">
+					<a class="nav-link" href="/qrcode/index.jsp">  <i class="fa fa-files-o"></i> Qrcode</a>
+				</li>
+				<li class="nav-item <%if(index == 7){%> active <%}%>">
+					<a class="nav-link" href="/shorten/index.jsp">  <i class="fa fa-files-o"></i> shortenURL</a>
 				</li>
 			</ul>
 			<ul class="navbar-nav ">
+			<%if(memberDto == null){%>
 				<li class="nav-item <%if(index == 1){%> active <%}%>">
 					<a class="nav-link" href="/member/register.jsp"><i class="fa fa-registered"></i> Register</a>
 				</li>
-				
+			<% } %>
 				<li class="nav-item">
 				<%if(memberDto == null){ %>
-					<a class="nav-link" href="/member/login.jsp"><i class="fa fa-user"></i> Login</a>
+					<a class="nav-link" href="/member/login.jsp"> Login</a>
 					<%} else{%>
-					<a class="nav-link" href="/member/logout.jsp"><i class="fa fa-user"></i> Logout<%=memberDto.getName()%>님 환영합니다.</a>
+					<a class="nav-link" href="/member/logout.jsp"> Logout</a>
 					<%} %>
 				</li>
 			</ul>

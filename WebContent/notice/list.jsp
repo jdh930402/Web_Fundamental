@@ -4,15 +4,25 @@
 <%@page import="kr.co.kic.dev1.dto.NoticeDto"%>
 <%@include file="/inc/header.jsp" %>
 <%
-	NoticeDao dao = NoticeDao.getInstance();
-	ArrayList<NoticeDto> list = dao.select(0, 10);
+	String tempPage = request.getParameter("page");
+	if(tempPage == null || tempPage.length() == 0 || tempPage.equals("0")){
+		tempPage = "1";
+	}
+	int cPage = 0;
+	try{
+		cPage = Integer.parseInt(tempPage);
+		if(cPage < 0){
+			cPage = Math.abs(cPage);
+		}
+	} catch(NumberFormatException e){
+		cPage = 1;
+	}
+
 %>
-
-
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb justify-content-end">
 			<li class="breadcrumb-item"><a href="/">Home</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Notice</li>
+			<li class="breadcrumb-item active" aria-current="page">Department</li>
 		</ol>
 	</nav>
 	<div class="container">
@@ -22,73 +32,62 @@
 					<div class="card-body">
 						<h5 class="card-title">공지사항</h5>
 						<div class="table-responsive-md">
-							<table class="table table-hover">
-								<colgroup>
-									<col width="10%" />
-									<col width="12%" />
-									<col width="63%" />
-									<col width="10%" />
-								</colgroup>
-								<thead>
-									<tr>
-										<th scope="col">#</th>
-										<th scope="col">작성자</th>
-										<th scope="col">제목</th>
-										<th scope="col">등록날짜</th>
-									</tr>
-								</thead>
-								<tbody>
-								
-									<%
-									if(list.size() != 0){
-										for(int i=0 ; i< list.size(); i++){
-											NoticeDto dto = list.get(i);
-											int num = dto.getNum();
-											String writer = dto.getWriter();
-											String title = dto.getTitle();
-											String regdate = dto.getRegdate();
-											
-
-									%> 								
-									<tr>
-										<th scope="row"><%=num%></th>
-										<td><%=writer%></td>
-										<td><a href="view.jsp?num=<%=num%>"><%=title %></a> </td>
-										<td><%=regdate%></td>
-									</tr>
-									 <%}} else{%>
-									 <tr>
-									 	<td colspan = "4" scope = "row"> 공지된 게시물이 없습니다.</td>
-									 </tr>
-									 <% } %>
-								</tbody>
-							</table>
-
-							<nav aria-label="Page navigation example">
-								<ul class="pagination pagination-lg justify-content-center">
-									<li class="page-item disabled">
-										<a class="page-link" href="#" tabindex="-1">&laquo;</a>
-									</li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">4</a></li>
-									<li class="page-item"><a class="page-link" href="#">5</a></li>
-									<li class="page-item"><a class="page-link" href="#">6</a></li>
-									<li class="page-item"><a class="page-link" href="#">7</a></li>
-									<li class="page-item"><a class="page-link" href="#">8</a></li>
-									<li class="page-item"><a class="page-link" href="#">9</a></li>
-									<li class="page-item"><a class="page-link" href="#">10</a></li>
-									<li class="page-item">
-										<a class="page-link" href="#">&raquo;</a>
-									</li>
-								</ul>
-							</nav>
 						</div>
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
-<%@include file="/inc/footer.jsp"%>
+<script>
+	const pageLoad = function(cPage){
+		let url = 'http://localhost/notice/list.jsp?page=' + cPage;
+		history.pushState(null, null, url); 
+		$.ajax({
+			type : 'GET',
+			dataType : 'html',
+			url : 'list_ajax.jsp?page=' + cPage,
+			error : function(){
+				alert('환영합니다.');
+			},
+			success : function(html){
+				$('.table-responsive-md').children().remove();
+				$('.table-responsive-md').html(html);
+			}
+		}); // 버튼을 눌렀을때 ajax(메서드로 클릭시 사용가능)	
+	}
+
+	$.ajax({
+		type : 'GET',
+		dataType : 'html',
+		url : 'list_ajax.jsp?page=<%=cPage%>',
+		error : function(){
+			alert('환영합니다.');
+		},
+		success : function(html){
+			$('.table-responsive-md').children().remove();
+			$('.table-responsive-md').html(html);
+		}
+	}); // 홈페이지 접속 ajax(window.onload시 자동실행)
+
+	$(window).on('popstate',function(){
+		let url = location.search;
+		let cPage = new URLSearchParams(url).get("page");
+		$.ajax({
+			data : 'GET',
+			dataType : 'html',
+			url : 'list_ajax.jsp?page=' + cPage,
+			error : function(){
+				alert('popstate error');
+			},
+			success : function(html){
+				$('.table-responsive-md').children().remove();
+				$('.table-responsive-md').html(html);
+			}
+		});
+			
+			
+			
+			
+		});
+</script>
+<%@ include file = "/inc/footer.jsp"%>	

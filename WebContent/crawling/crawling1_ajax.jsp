@@ -1,3 +1,4 @@
+<%@page import="java.io.IOException"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="org.jsoup.nodes.Element"%>
 <%@page import="org.jsoup.select.Elements"%>
@@ -17,7 +18,13 @@
 		cYear = calendar.get(Calendar.YEAR);
 	}
 	String url = "https://sports.news.naver.com/kfootball/record/index.nhn?category=kleague&year="+cYear ;
-	Document doc = Jsoup.connect(url).get();
+	Document doc = null;
+	try {
+		doc = Jsoup.connect(url).get();
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
 	
 %>
 

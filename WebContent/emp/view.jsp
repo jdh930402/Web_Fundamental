@@ -54,49 +54,49 @@
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="no">사원번호</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" name = "no" id="no" value= <%=no %> readonly="readonly">
+									<p><%=no%></p>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="name">이름</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" name = "name" id="name" value="<%=name %>" >
+									<p><%=name%></p>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="job">직책</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" name = "job" id="job" value="<%=job %>" >
+									<p><%=job%></p>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="mgr">담당사수</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" name = "mgr" id="mgr" value="<%=mgr %>" >
+									<p><%=mgr%></p>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="hiredate">입사일</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" name = "hiredate" id="hiredate" value="<%=hiredate %>" >
+									<p><%=hiredate%></p>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="sal">급여</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" name = "sal" id="sal" value="<%=sal %>" >
+									<p><%=sal%></p>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="comm">커미션</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" name = "comm" id="comm" value="<%=comm %>" >
+									<p><%=comm%></p>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="deptno">부서번호</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" name = "deptno" id="deptno" value="<%=deptno %>">
+									<p><%=deptno%></p>
 								</div>
 							</div>
 							
@@ -104,8 +104,6 @@
 						</form>
 
 						<div class="text-right">
-								<a href="" id = "modifyEmp" class="btn btn-outline-primary">수정</a>
-								<a href="" id = "deleteEmp" class="btn btn-outline-danger">삭제</a>
 								<a href="list.jsp?page=<%=cPage%>" class="btn btn-outline-success">리스트</a>
 						</div>
 						

@@ -77,7 +77,6 @@
 	$(window).on('popstate',function(){
 		let url = location.search;
 		let cPage = new URLSearchParams(url).get("page");
-		console.log(cPage);
 		$.ajax({
 			data : 'GET',
 			dataType : 'html',

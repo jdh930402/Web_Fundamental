@@ -1,7 +1,6 @@
-<%@page import="kr.co.kic.dev1.dao.MemberDao"%>
-<%@page import="kr.co.kic.dev1.dto.DeptDto"%>
+<%@page import="kr.co.kic.dev1.dao.NoticeDao"%>
+<%@page import="kr.co.kic.dev1.dto.NoticeDto"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="kr.co.kic.dev1.dao.DeptDao"%>
 <%@page pageEncoding="utf-8"%>
 <%
 	String tempPage = request.getParameter("page");
@@ -14,7 +13,7 @@
 	}catch(NumberFormatException e){
 		cPage = 1;
 	}
-	DeptDao dao = DeptDao.getInstance();
+	NoticeDao dao = NoticeDao.getInstance();
 	int length = 5;
 	int start =  (cPage-1)*length;
 	int totalRows = dao.getRows();
@@ -26,7 +25,7 @@
 	if(totalBlock == currentBlock){
 		endPage = totalPage;
 	}
-	ArrayList<DeptDto> list = dao.select(start, length);
+	ArrayList<NoticeDto> list = dao.select(start, length);
 %>
 
 <table class="table table-hover">
@@ -51,16 +50,17 @@
 <%
 	if(list.size() != 0){
 		for(int i=0; i<list.size() ; i++){
-			DeptDto dto = list.get(i);
+			NoticeDto dto = list.get(i);
 			int pageNum = totalRows-(cPage-1)*length-i;
-			int no = dto.getNo();
-			String name = dto.getName();
-			String loc = dto.getLoc();
+			int num = dto.getNum();
+			String writer = dto.getWriter();
+			String title = dto.getTitle();
+			String regdate = dto.getRegdate();
 %>
 			<th scope="row"><%=pageNum%></th>
-			<td><%=no%></td>
-			<td><a class = "click_list" href = "view.jsp?no=<%=no%>"><%=name%></a></td>
-			<td><%=loc%></td>
+			<td><%=writer%></td>
+			<td><a class = "click_list" href = "view.jsp?num=<%=num%>"><%=title%></a></td>
+			<td><%=regdate%></td>
 		</tr>	
 		
 <% 
@@ -81,7 +81,7 @@
 		<%-- <<버튼 --%>
 		<%if(currentBlock == 1){ %>
 		<li class="page-item disabled">
-			<a class="page-link" href="#" tabindex="-1">&laquo;</a>
+			<a class="page-link" href="javascript:pageLoad(<%=startPage-1%>)" tabindex="-1">&laquo;</a>
 		</li>
 		<%} else{%>
 		<li class="page-item">
@@ -96,7 +96,7 @@
 		<%-- >>버튼 --%>
 		<%if(currentBlock == totalBlock){ %>
 		<li class="page-item disabled">
-			<a class="page-link" href="#">&raquo;</a>
+			<a class="page-link" href="javascript:pageLoad(<%=endPage%>)">&raquo;</a>
 		</li>
 		<%}else{ %>
 				<li class="page-item ">
@@ -109,3 +109,9 @@
 <script>
 
 </script>
+
+
+
+
+
+

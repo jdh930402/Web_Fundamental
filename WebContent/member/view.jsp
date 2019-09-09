@@ -48,23 +48,23 @@
             <form class="form-horizontal" role="form" name = 'f' method = 'post'>
               <div class="form-group">
                 <label class="col-form-label" for="name">성명</label>
-                <input type="text" class="form-control" name="name" id="name" value = "<%=name%>">
+                	<p><%=name%></p>
               </div>
               <div class="form-group">
                 <label class="col-form-label" for="id">아이디</label>
-                <input type="text" class="form-control" name="id" id="id" value="<%=id%>">
+                <p><%=id%></p>
               </div>
               <div class="form-group">
                 <label for="email">이메일 주소</label>
-                <input type="email" class="form-control" name="email" id="email" value = "<%=email%>">
+                <p><%=email%></p>
               </div>
               <div class="form-group">
                 <label for="phone">휴대폰 번호</label>
-                <input type="tel" class="form-control" name="phone" id="phone" value = "<%=phone%>" >
+                <p><%=phone%></p>
               </div>
               <div class="form-group">
                 <label for="regdate">가입일</label>
-                <input type="tel" class="form-control" name="regdate" id="regdate" value = "<%=regdate%>" >
+                <p><%=regdate%></p>
               </div>
               <input type="hidden" name = "seq" value = "<%=seq%>">
               <input type="hidden" name = "page" value = "<%=cPage%>">
@@ -72,25 +72,6 @@
             <div class="text-right">
 				<a href="list.jsp?page=<%=cPage%>" class="btn btn-outline-success">리스트</a>
 			</div>
-            
-            <script>
-            	$(function(){
-            		$('#modifyMember').on('click',function(event){
-            			event.preventDefault();
-            			f.action = 'modify.jsp';
-            			f.submit();
-            		});
-            		
-            		$('#deleteMember').on('click', function(event){
-            			event.preventDefault();
-            			if(confirm('정말로 삭제하시겠습니까?')){ // 확인을 누르면 true를 반환, 취소를 누르면 false를 반환한다.
-            			f.action = 'delete.jsp';
-            			f.submit();		
-            			}
-            		});
-            	});
-            
-            </script>
           </div>
         </div>
       </div>

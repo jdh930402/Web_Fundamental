@@ -19,7 +19,7 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb justify-content-end">
 			<li class="breadcrumb-item"><a href="/">Home</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Legister</li>
+			<li class="breadcrumb-item active" aria-current="page">Crawling1</li>
 		</ol>
 	</nav>
 	<div class="container">
@@ -54,7 +54,7 @@
 			$.ajax({
 				type : 'GET',
 				dataType : 'html',
-				url : 'crawling_ajax.jsp?year='+$('#year option:selected').val(),
+				url : 'crawling1_ajax.jsp?year='+$('#year option:selected').val(),
 				error : function(){
 					alert('에러발생');
 				},
@@ -68,7 +68,7 @@
 		$.ajax({
 			type : 'GET',
 			dataType : 'html',
-			url : 'crawling_ajax.jsp?year='+$('#year option:selected').val(),
+			url : 'crawling1_ajax.jsp?year='+$('#year option:selected').val(),
 			error : function(){
 				alert('에러발생');
 			},
@@ -86,7 +86,7 @@
 			$.ajax({
 				type : 'GET',
 				dataType : 'html',
-				url : 'crawling_ajax.jsp?year='+cYear,
+				url : 'crawling1_ajax.jsp?year='+cYear,
 				error : function(){
 					alert('error 발생');
 				},

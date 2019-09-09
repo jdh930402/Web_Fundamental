@@ -15,14 +15,14 @@
 	int year = c.get(Calendar.YEAR);
 	int month = c.get(Calendar.MONTH)+1;
 	
-	File file = new File(path,year+"//"+month);
-	if(!file.isDirectory()){
-		file.mkdirs();
+	File f = new File(path,year+"//"+month);
+	if(!f.isDirectory()){
+		f.mkdirs();
 	}
 
 	MultipartRequest multi = null; // 이 객체가 완성되면 파일이 생성된것임.
 	try{
-		multi = new MultipartRequest(request, file.getPath(), 10*1024*1024, "utf-8", new DefaultFileRenamePolicy());
+		multi = new MultipartRequest(request, f.getPath(), 10*1024*1024, "utf-8", new DefaultFileRenamePolicy());
 		// multi = new MultipartRequest(request, 업로드할 디렉토리 경로, 파일 크기(10메가까지 가능), "utf-8", 파일이름이 중복되면 파일명 끝에 1,2,3...을 붙임);
 		
 	} catch (IOException e){
@@ -31,7 +31,7 @@
 	String name = multi.getParameter("name");
 	String fileName = multi.getFilesystemName("file");
 	String uploadName = multi.getOriginalFileName("file");
-	File f1 = new File(file, fileName);
+	File f1 = new File(f, fileName);
 	long fileSize = f1.length()/1024;
 %>
 

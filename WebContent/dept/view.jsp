@@ -28,45 +28,25 @@
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="no">부서번호</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="no" name = "no" value = <%=no%> readonly="readonly">
+										<p> <%=no%></p>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="name">부서명</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id="name" name = "name" value = "<%=name%>">
+										<p> <%=name%></p>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-form-label col-sm-2" for="loc">부서위치</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" id = "loc" name = "loc" value = "<%=loc%>">
+									<p> <%=loc%></p>
 								</div>
 							</div>
 						</form>
-
-						<div class="text-right">
-							<a href="modify.jsp" id = "modifyDept" class="btn btn-outline-primary">수정</a>
-							<a href="list.jsp" id = "deleteDept" class="btn btn-outline-success">삭제</a>
-							<a href="list.jsp" class="btn btn-outline-success">취소</a>
-						</div>
-						
-						<script>
-							$(function(){
-								$('#modifyDept').on('click', function(event){
-									event.preventDefault();
-									f.action = 'modify.jsp';
-									f.submit();
-								});
-								
-								$('#deleteDept').on('click',function(event){
-									event.preventDefault();
-									f.action = 'delete.jsp';
-									f.submit();
-								});
-							});
-						
-						</script>
+			<div class="text-right">
+				<a href="list.jsp?page=<%=no%>" class="btn btn-outline-success">리스트</a>
+			</div>
 
 					</div>
 				</div>

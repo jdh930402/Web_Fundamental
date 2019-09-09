@@ -48,9 +48,9 @@
     </div>
   </div>
  <script>
+ 		let captchaKey = "";
 	 	$('#checkLogin').on('click', function(event){
  			event.preventDefault();	
- 			let captchaKey = "";
  			
 	 		if( $('#eamil').val().length == 0){
  				$('#emailMessage').html("<span class = 'text-danger'>아이디를 입력하세요.</span>");
@@ -60,10 +60,32 @@
 	 			$('#pwdMessage').html("<span class = 'text-danger'>비밀번호를 입력하세요.</span>");
 	 			$('#email').addClass('is-invalid');
 	 			$('#pwd').focus();
+	 		}else if( $('#captchaCode').val() == ""){
+	 			alert('캡차코드를 입력하세요');
+	 			$('#captchaCode').addClass('is-invalid');
+	 			$('#captchaCode').focus();
 	 		}else{
-	 			f.submit();
+	 			$.ajax({
+	 				type : 'GET',
+	 				dataType : 'json',
+	 				url : 'captcha/getKeyResult.jsp?key='+captchaKey +'&value='+$('#captchaCode').val(), // 캡차 키, 입력한 값을 보내야한다.
+	 				success : function(json){
+	 					console.log(json);
+	 					if(json.result === true){ //== : 값 비교 	=== : 값+타입 비교		
+			 				f.submit();
+	 					}else{
+	 						alert('캡차코드가 잘못 되었습니다.');
+	 						location.href="login.jsp";
+	 					}
+	 				}
+	 			});
 	 		}
 	 	}); // login이벤트 종료 
+	 	
+	 	$('#refreshNumber').on('click', function(event){
+	 		event.preventDefault();
+	 		loadImage();
+	 	});
 	 	
 	 	var loadImage = function(){
 	 		$.ajax({

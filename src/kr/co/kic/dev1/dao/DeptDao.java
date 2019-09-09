@@ -205,7 +205,7 @@ public class DeptDao {
 		return list;
 	}
 	
-	public int getCount() {
+	public int getRows() {
 		int count = 0;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -237,4 +237,6 @@ public class DeptDao {
 		}
 		return count;
 	}
+	
+	
 }
