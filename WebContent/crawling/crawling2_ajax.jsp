@@ -17,7 +17,7 @@
 		coin = "bitcoin";
 	}
 	Calendar calendar = Calendar.getInstance();
-	String Ddate = Utility.getDate(calendar, "yyyymmdd");
+	String Ddate = Utility.getDate(calendar, "yyyyMMdd");
 
 	
 	
@@ -34,12 +34,13 @@
 	try {
 		doc = Jsoup.connect(url).get();
 	} catch (IOException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 	Elements bodyElements = doc.select(".table-responsive .table tbody tr");
 %>
 
+						<h5 class="card-title"><%=coin.substring(0, 1).toUpperCase() + coin.substring(1)%>
+						</h5>
 
 							<table class="table table-hover">
 								<colgroup>
@@ -87,10 +88,10 @@
 										<td><%=volume%></td>
 										<td><%=marketCap%></td>
 									</tr>	
-							<%
-									} 
-								}
-							%>
+							
+									<%}}else{ %>
+									<p>등록된 정보가 없습니다.</p>
+								<%}%>
 								</tbody>
 							</table>
 

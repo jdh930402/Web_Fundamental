@@ -48,7 +48,7 @@
 	 		}
 	 		
 	 		if( ($('#url').val().endsWith("net") || $('#url').val().endsWith("co.kr") || $('#url').val().endsWith("com")) === false ){
-	 			alert('URL을 .');
+	 			alert('올바른 URL이 아닙니다.');
 	 			$('#url').focus();
 	 			return;
 	 		}

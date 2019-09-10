@@ -82,7 +82,7 @@
 					<a class="nav-link" href="/member/list.jsp">  <i class="fa fa-user"></i> Member</a>
 				</li>
 				<li class="nav-item <%if(index == 6){%> active <%}%>">
-					<a class="nav-link" href="/file/index.jsp">  <i class="fa fa-upload"></i> Upload File</a>
+					<a class="nav-link" href="/file/index.jsp">  <i class="fa fa-upload"></i> File Upload </a>
 				</li>
 				<li class="nav-item <%if(index == 7){%> active <%}%>">
 					<a class="nav-link" href="/crawling/crawling1.jsp">  <i class="fa fa-files-o"></i> crawling1</a>

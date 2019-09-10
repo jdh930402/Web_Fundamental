@@ -27,7 +27,9 @@
 	}
 	
 %>
-
+	<h5 class="card-title" >
+		<%=cYear%> K리그1 정규 라운드 팀별 순위
+	</h5>
 
 
 <table class="table table-hover">
@@ -171,6 +173,5 @@
 					<td><%=foul%></td>	
 				</tr>
 				<%}}%>
- 	
 	</tbody>
 </table>

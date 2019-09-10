@@ -31,7 +31,6 @@
 			resp.append(inputLine);
 		}
 		br.close();
-		out.println(resp.toString());
 	} catch(Exception e){
 		e.printStackTrace();
 	}

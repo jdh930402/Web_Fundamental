@@ -3,9 +3,9 @@
 <%@page pageEncoding="utf-8"%>
 <%@include file = "/inc/header.jsp" %>
 	<!-- datepicker widget css -->
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
-	<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <%
 
 	String coin = request.getParameter("coin");
@@ -39,9 +39,10 @@
 			<div class="col-sm-12">
 				<div class="card">
 					<div class="card-body">
-						<h5 class="card-title">CoinMarket
+						<h5>
 							<button id="btnOk" style = "float: right;">확인</button>
 							<input type="text" id = "end" class="testDatepicker" name = "end" style = "float: right;" placeholder="endDate"> 
+							<span style = "float: right;"> ~ </span>
 							<input type="text" id = "start" class="testDatepicker"  name = "start" style = "float: right;" placeholder="startDate"> 
 							<select id = 'coin' name = 'coin' style = "float: right;">
 							<option value = 'bitcoin'>Bitcoin</option>
@@ -50,8 +51,8 @@
 							<option value = 'bitcoin-cash'>Bitcoin Cash</option>
 							<option value = 'litecoin'>Litecoin</option>
 							</select>
-						
 						</h5>
+						
 						<div class="table-responsive-md">
 						</div>
 					</div>
@@ -61,7 +62,7 @@
 	</div>
 <script>
 	
-	$('#coin').on('change', function(){
+	$('#coin').on('change', function(){	
 		let url = "http://localhost/crawling/crawling2.jsp?coin="+ $('#coin option:selected').val();
 		history.pushState(null,null,url);
 		$.ajax({
@@ -101,7 +102,6 @@
 		});
 	});
 	
-	
 	$(function() {
 		$.ajax({
 			type : 'GET',
@@ -116,8 +116,6 @@
 			}
 		});
 		    $('.testDatepicker').datepicker({
-		         showButtonPanel: true, 
-		         currentText: '오늘 날짜', 
 		         closeText: '닫기', 
 		         dateFormat: "yymmdd"
 		  });
@@ -140,6 +138,4 @@
 		    });
 	});
 </script>
-
-
 <%@include file = '/inc/footer.jsp'%>

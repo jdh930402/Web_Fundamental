@@ -28,7 +28,6 @@
 				<div class="card">
 					<div class="card-body">
 						<h5 class="card-title" >
-						K리그1 정규 라운드 팀별 순위
 						<select id = 'year' name = 'year' style = "float: right;">
 						<%for(int i = cYear ; i >= 1983 ; i--){ %>
 						<option value = '<%=i%>'><%=i%></option>
@@ -39,6 +38,9 @@
 						<div class="table-responsive-md">
 									
 						</div>
+						<form class="form-horizontal" enctype = "multipart/form-data" role="form" name = "f" method = "post" action = "crawling1_Download.jsp?year=<%=cYear%>">
+						 	<button id="saveExcel" class="btn btn-outline-info" style = "float: right;">Excel Download</button>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -63,6 +65,22 @@
 					$('.table-responsive-md').html(html);
 				}	
 			})
+		});
+		
+		$('#saveExcel').on('click', function(event){
+			event.preventDefault();
+			$.ajax({
+				type : 'GET',
+				dataType : 'html',
+				url : 'crawling1_Download.jsp?year=<%=cYear%>',
+				error : function(){
+					alert('파일 다운이 불가능합니다.');
+				},
+				success : function(){
+					alert('파일 다운이 완료되었습니다.');
+				}
+			});
+			
 		});
 	
 		$.ajax({
