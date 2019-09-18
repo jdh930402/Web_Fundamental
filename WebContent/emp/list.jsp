@@ -58,7 +58,7 @@
 		});
 		
 		const pageLoad = function(cPage){
-			let url = 'http://localhost/emp/list.jsp?page='+cPage
+			let url = 'http://13.209.98.54/emp/list.jsp?page='+cPage
 			history.pushState(null, null, url);
 			$.ajax({
 				type : 'GET',

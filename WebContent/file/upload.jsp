@@ -15,7 +15,7 @@
 	int year = c.get(Calendar.YEAR);
 	int month = c.get(Calendar.MONTH)+1;
 	
-	File f = new File(path,year+"//"+month);
+	File f = new File(path,year+File.separator+month);
 	if(!f.isDirectory()){
 		f.mkdirs();
 	}
